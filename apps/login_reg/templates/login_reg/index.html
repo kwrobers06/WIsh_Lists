@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+</head>
+
+<body>
+    {%if messages%}{%for message in messages %}
+    <p>{{message}}</p>{%endfor%} {%endif%}
+    <h3>Register here</h3>
+    <form action='/register' method="POST">
+        {% csrf_token %} Name:
+        <input type="text" name="first_name"> <br> <br> User name:<input type="text" name="user_name"> <br> <br>
+        Password:<input type="text" name="password"> <br><br> Confirm password:<input type="text" name="c_password"> <br><br> <br> Date hired: <input type="date" name="hired_day"><br> <br>
+        <input type="submit" value="Register"> <br>
+    </form>
+
+    <h3>Login here</h3>
+    <form action="/login" method='POST'> {% csrf_token %} <input type="text" name="user_name" placeholder="Enter your user name">
+        <br> <br><input type="text" name="password" placeholder="Enter your password">
+        <br><br><input type="submit" value="Login">
+    </form>
+
+</body>
+
+</html>

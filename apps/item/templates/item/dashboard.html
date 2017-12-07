@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    table,
+    th,
+    td {
+        border: 2px solid black;
+    }
+</style>
+
+<body>
+    <h2>Welcome, {{request.session.first_name}}!</h2>
+    <h3>Your Wish List:</h3>
+    <table style="width:50%">
+        <tr>
+            <th>Item</th>
+            <th>Added by</th>
+            <th>Date added</th>
+            <th>Action</th>
+        </tr>
+        {% for item in wishlist_items%}
+        <tr>
+            <td><a href="/wish_items/show_item/{{item.id}}">{{item.title}}</a></td>
+            <td>{{item.users.first_name}}</td>
+            <td>{{item.created_at}}</td>
+            {% if item.users.id == request.session.userid %}
+            <td><a href="/wish_items/delete/{{item.id}}">Delete</a></td>
+            {% else %}
+            <td><a href="/wish_items/remove_from_wishlist/{{item.id}}">Remove from my wish list</a></td>
+            {%endif%}
+        </tr>
+        {% endfor %}
+
+    </table>
+
+
+    <h3>Items not yet Wished for:</h3>
+    <table style="width:50%">
+        <tr>
+            <th>Item</th>
+            <th>Added by</th>
+            <th>Date added</th>
+            <th>Action</th>
+        </tr>
+        {% for item in not_wished_yet %}
+        <tr>
+            <td><a href="/wish_items/show_item/{{item.id}}">{{item.title}}</a></td>
+            <td>{{item.users.first_name}}</td>
+            <td>{{item.created_at}}</td>
+            <td><a href="/wish_items/add_to_wishlist/{{item.id}}">Add to my wish list</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>
+        <a href="/wish_items/create">Add Item</a></p>
+  
+
+</body>
+
+</html>
